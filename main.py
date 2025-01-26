@@ -6,6 +6,11 @@ from PIL import Image
 import fitz  # PyMuPDF
 import io
 
+from services.extract_entities import extract_threat_actor, extract_targeted_entities
+from services.extract_malware import extract_malware_details
+from services.extract_iocs import extract_iocs
+from services.extract_ttps import extract_ttp
+
 def extract_text_and_images(pdf_path):
     """
     Extract all text and images from a PDF file.
@@ -80,8 +85,16 @@ def sanitize_text(text):
 
     return sanitized_text
 
-if __name__ == "__main__":
-    pdf_path = input("Enter the path to the PDF file: ")
+def process_pdf(pdf_path):
+    """
+    Process the PDF file to extract threat intelligence data.
+
+    Args:
+        pdf_path (str): Path to the PDF file.
+
+    Returns:
+        dict: Extracted threat intelligence data.
+    """
     try:
         # Extract text and images from the PDF
         extracted_data = extract_text_and_images(pdf_path)
@@ -91,7 +104,53 @@ if __name__ == "__main__":
 
         # Sanitize the extracted text to avoid malicious code execution
         sanitized_text = sanitize_text(text)
-        print(sanitized_text) # Check sanitized text
+
+        # Extract IoCs, TTPs, and Malware details using the other functions
+        iocs = extract_iocs(sanitized_text)
+        actors = extract_threat_actor(sanitized_text)
+        entities = extract_targeted_entities(sanitized_text)
+        malware_data = extract_malware_details(sanitized_text)
+        ttp_data = extract_ttp(sanitized_text)
+
+        # Prepare the result
+        result = {
+            'IoCs': {
+                'IP addresses': iocs['IP addresses'],
+                'Domains': iocs['Domains'],
+                'Email addresses': iocs['Email addresses'],
+                'File hashes': iocs['File hashes']
+            },
+            'TTPs': ttp_data.get('TTPs', {}),
+            'Malware': malware_data,
+            'Actors': actors,
+            'Entities': entities
+        }
+
+        return result
+
+    except FileNotFoundError as e:
+        print(f"Error: {e}")
     except Exception as e:
-        print(f"An error occurred: {str(e)}")
-    
+        print(f"An error occurred: {e}")
+
+if __name__ == "__main__":
+    # Take user input for the file path
+    pdf_path = input("Enter the path to the PDF file: ")
+    try:
+        # Process the PDF to extract threat intelligence data
+        threat_intelligence_data = process_pdf(pdf_path)
+
+        # Display the extracted threat intelligence data
+        if threat_intelligence_data:
+            print("\nExtracted Threat Intelligence Data:")
+            print(f"IOCs: {threat_intelligence_data['IoCs']}")
+            print(f"TTPs: {threat_intelligence_data['TTPs']}")
+            print(f"Malware: {threat_intelligence_data['Malware']}")
+            print(f"Actors: {threat_intelligence_data['Actors']}")
+            print(f"Entities: {threat_intelligence_data['Entities']}")
+        else:
+            print("No threat intelligence data extracted.")
+    except FileNotFoundError as e:
+        print(f"Error: {e}")
+    except Exception as e:
+        print(f"An error occurred: {e}")

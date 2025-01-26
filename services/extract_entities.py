@@ -57,20 +57,3 @@ def extract_targeted_entities(sanitized_text: str) -> List[str]:
                     targeted_entities.append(ent.text)
 
     return list(set(targeted_entities))  # Remove duplicates
-
-sanitized_text = """
-    BlackBerry has uncovered a previously unknown threat actor targeting an aerospace organization in
-    the United States, with the apparent goal of conducting commercial and competitive cyber espionage.
-    The BlackBerry Threat Research and Intelligence team is tracking this threat actor as AeroBlade.
-    The targets of the attack were entities in the U.S. aerospace industry.
-    """
-
-threat_actor = extract_threat_actor(sanitized_text)
-targeted_entities = extract_targeted_entities(sanitized_text)
-
-output = {
-        "Threat Actors": threat_actor,
-        "Targeted Entities": targeted_entities
-    }
-
-print(output)
