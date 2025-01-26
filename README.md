@@ -76,6 +76,31 @@ Once processing is complete, the tool will give you the option to download the e
 
 ---
 
+## 🔗 Helpful Resources for Dependencies 🔗
+
+If you encounter any issues while installing the required dependencies, refer to the following resources:
+
+### Installing Python
+- [Python Official Website](https://www.python.org/downloads/)
+- [Guide to Installing Python on Windows/Mac/Linux](https://realpython.com/installing-python/)
+
+### Using pip to Install Packages
+- [pip Documentation](https://pip.pypa.io/en/stable/)
+- [Beginner's Guide to pip](https://realpython.com/what-is-pip/)
+
+### Installing spaCy
+- [spaCy Installation Guide](https://spacy.io/usage)
+- [Downloading spaCy Models](https://spacy.io/usage/models)
+
+### Library-Specific Guides
+- **pdfplumber**: [GitHub Documentation](https://github.com/jsvine/pdfplumber)
+- **Pillow**: [Official Installation Guide](https://pillow.readthedocs.io/en/stable/installation.html)
+- **PyMuPDF**: [PyMuPDF Documentation](https://pymupdf.readthedocs.io/en/latest/)
+
+If you still face issues, feel free to ask your team or the community for assistance.
+
+---
+
 ## ❗ Limitations ❗
 
 - **Accuracy**: Extraction accuracy may vary depending on the PDF layout and formatting. Complex reports may require additional manual verification.
