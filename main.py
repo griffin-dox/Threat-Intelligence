@@ -5,6 +5,7 @@ import pdfplumber
 from PIL import Image
 import fitz  # PyMuPDF
 import io
+import json
 
 from services.extract_entities import extract_threat_actor, extract_targeted_entities
 from services.extract_malware import extract_malware_details
@@ -133,6 +134,18 @@ def process_pdf(pdf_path):
     except Exception as e:
         print(f"An error occurred: {e}")
 
+def download_data(data, filename="threat_intelligence_data.json"):
+    """
+    Save the extracted threat intelligence data to a JSON file.
+
+    Args:
+        data (dict): The threat intelligence data to be saved.
+        filename (str): The filename to save the data as.
+    """
+    with open(filename, "w") as f:
+        json.dump(data, f, indent=4)
+    print(f"Data successfully saved as {filename}")
+
 if __name__ == "__main__":
     # Take user input for the file path
     pdf_path = input("Enter the path to the PDF file: ")
@@ -148,6 +161,14 @@ if __name__ == "__main__":
             print(f"Malware: {threat_intelligence_data['Malware']}")
             print(f"Actors: {threat_intelligence_data['Actors']}")
             print(f"Entities: {threat_intelligence_data['Entities']}")
+
+            # Ask user if they want to download the data
+            download_choice = input("\nDo you want to download the extracted data? (Y/N): ").strip().lower()
+
+            if download_choice == 'y':
+                download_data(threat_intelligence_data)
+            else:
+                print("Data not downloaded.")
         else:
             print("No threat intelligence data extracted.")
     except FileNotFoundError as e:
