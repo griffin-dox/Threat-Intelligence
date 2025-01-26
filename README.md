@@ -1,4 +1,4 @@
-# 🚨 Threat Intelligence Data Extractor 🚨
+# 🚨 Threat Intelligence Data Extractor 🚨(Private till 27th Jan 12:00 AM)
 
 Welcome to the **Threat Intelligence Data Extractor** project, developed by **Team Cyber Trace SSPU**! This tool helps you extract and analyze critical threat intelligence data from PDF reports, including:
 
@@ -23,7 +23,7 @@ Welcome to the **Threat Intelligence Data Extractor** project, developed by **Te
 
 Before using this tool, ensure that you have the following installed:
 
-- **Python 3.x**  
+- **Python 3.8+**  
 - Required Python libraries:
   - `pdfplumber`
   - `Pillow`
