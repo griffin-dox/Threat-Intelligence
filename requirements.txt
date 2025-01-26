@@ -1,0 +1,4 @@
+spacy==3.5.0
+pdfplumber==0.9.0
+pillow==9.0.1
+pymupdf==1.19.6
