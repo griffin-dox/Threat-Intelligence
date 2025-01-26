@@ -1,178 +1,102 @@
 {
     "IoCs": {
-        "IP addresses": [
-            "121.151.212.101",
-            "14.43.108.22",
-            "185.243.41.240",
-            "220.132.106.193",
-            "122.116.234.73",
-            "175.208.234.194",
-            "182.220.237.217",
-            "175.200.146.227",
-            "59.10.140.47",
-            "114.34.10.80",
-            "119.200.211.197",
-            "59.127.10.132",
-            "220.133.141.117",
-            "122.116.165.62",
-            "210.123.140.200",
-            "121.128.198.233",
-            "124.216.159.70",
-            "112.171.218.39",
-            "114.35.16.182",
-            "175.214.193.170",
-            "211.184.160.108",
-            "61.74.255.16",
-            "114.35.191.224"
-        ],
+        "IP addresses": [],
         "Domains": [
-            "greatsong.soundcast.me",
-            "supermarket.ownip.net",
-            "www.recordedfuture.com",
-            "recordedfuture.com",
-            "supership.dynv6.net",
-            "www.microsoft.com",
-            "github.com"
+            "FILE.attributes",
+            "ctypes.windll",
+            "linkpc.net",
+            "research.checkpoint.com",
+            "www.mediafire.com",
+            "self.close",
+            "zip.items",
+            "www.python.org",
+            "upxsystems.com",
+            "conexionenlinea.bancodebogota.com",
+            "net.webclient",
+            "bancaempresas.bancocajasocial.com",
+            "mp.py",
+            "gtly.to",
+            "ByAV2.py",
+            "laminascol.linkpc.net",
+            "systemwin.linkpc.net"
         ],
         "Email addresses": [],
         "File hashes": {
-            "MD5": [
-                "d06cc3e6f5673b2e9bfdac55944109a5"
-            ],
-            "SHA1": [
-                "0f6afc6e4e383883a6308fcf8d84b14a5bf4ccaf"
-            ],
-            "SHA256": []
+            "MD5": [],
+            "SHA1": [],
+            "SHA256": [
+                "c067869ac346d007a17e2e91c1e04ca0f980e8e9c4fd5c7baa0cb0cc2398fe59",
+                "10fd1b81c5774c1cc6c00cc06b3ed181b2d78191c58b8e9b54fa302e4990b13d",
+                "8e864940a97206705b29e645a2c2402c2192858357205213567838443572f564",
+                "61685ea4dc4ca4d01e0513d5e23ee04fc9758d6b189325b34d5b16da254cc9f4",
+                "46addee80c4c882b8a6903cced9b6c0130ec327ae8a59c5946bb954ccea64a12",
+                "f80eb2fcefb648f5449c618e83c4261f977b18b979aacac2b318a47e99c19f64",
+                "2702ea04dcbbbc3341eeffb494b692e15a50fbd264b1d676b56242aae3dd9001",
+                "c63d15fe69a76186e4049960337d8c04c6230e4c2d3d3164d3531674f5f74cdf",
+                "c4ff3fb6a02ca0e51464b1ba161c0a7387b405c78ead528a645d08ad3e696b12",
+                "ac1ea54f35fe9107af1aef370e4de4dc504c8523ddaae10d95beae5a3bf67716",
+                "68af317ffde8639edf2562481912161cf398f0edba6e06745d90c1359554c76e",
+                "353406209dea860decac0363d590096e2a8717dd37d6b4d8b0272b02ad82472e",
+                "a03259900d4b095d7494944c50d24115c99c54f3c930bea08a43a8f0a1da5a2e"
+            ]
         }
     },
     "TTPs": {
         "Tactics": [
             [
-                "TA0009",
-                "Collection"
-            ],
-            [
-                "TA0010",
-                "Exfiltration"
+                "TA0003",
+                "Persistence"
             ]
         ],
         "Techniques": [
             [
-                "T1071",
-                "Application Layer Protocol"
-            ],
-            [
-                "T1071.002",
-                "Web Protocols"
+                "T1059.001",
+                "PowerShell"
             ],
             [
                 "T1090.003",
                 "Proxy"
             ],
             [
-                "T1034",
-                "Application Layer Protocol"
+                "T1086",
+                "PowerShell"
             ],
             [
-                "T1101",
-                "Application Layer Protocol"
+                "T1022",
+                "Impersonation"
             ]
         ]
     },
     "Malware": {
-        "Malware Name": "Not available",
+        "Malware Name": "This is a malware",
         "Malware Family": "Not available",
-        "SHA1": [
-            "0f6afc6e4e383883a6308fcf8d84b14a5bf4ccaf",
-            "0f6afc6e4e383883a6308fcf8d84b14a5bf4ccaf",
-            "0f6afc6e4e383883a6308fcf8d84b14a5bf4ccaf",
-            "0f6afc6e4e383883a6308fcf8d84b14a5bf4ccaf"
+        "SHA1": "Not available",
+        "SHA256": [
+            "8e864940a97206705b29e645a2c2402c2192858357205213567838443572f564",
+            "2702ea04dcbbbc3341eeffb494b692e15a50fbd264b1d676b56242aae3dd9001",
+            "f80eb2fcefb648f5449c618e83c4261f977b18b979aacac2b318a47e99c19f64",
+            "68af317ffde8639edf2562481912161cf398f0edba6e06745d90c1359554c76e",
+            "61685ea4dc4ca4d01e0513d5e23ee04fc9758d6b189325b34d5b16da254cc9f4",
+            "c63d15fe69a76186e4049960337d8c04c6230e4c2d3d3164d3531674f5f74cdf",
+            "353406209dea860decac0363d590096e2a8717dd37d6b4d8b0272b02ad82472e",
+            "a03259900d4b095d7494944c50d24115c99c54f3c930bea08a43a8f0a1da5a2e",
+            "46addee80c4c882b8a6903cced9b6c0130ec327ae8a59c5946bb954ccea64a12",
+            "c067869ac346d007a17e2e91c1e04ca0f980e8e9c4fd5c7baa0cb0cc2398fe59",
+            "10fd1b81c5774c1cc6c00cc06b3ed181b2d78191c58b8e9b54fa302e4990b13d",
+            "c4ff3fb6a02ca0e51464b1ba161c0a7387b405c78ead528a645d08ad3e696b12",
+            "ac1ea54f35fe9107af1aef370e4de4dc504c8523ddaae10d95beae5a3bf67716"
         ],
-        "SHA256": "Not available",
-        "MD5": [
-            "d06cc3e6f5673b2e9bfdac55944109a5"
-        ],
-        "SSDeep": [
-            "14:29",
-            "23:59"
-        ],
+        "MD5": "Not available",
+        "SSDeep": "Not available",
         "TLSH": "Not available",
-        "Malware Type": "Not available",
+        "Malware Type": "As blind eagle",
         "Tags": [
-            "Reverse Shell",
-            "Remote Template Injection",
-            "Spear-phishing",
+            "Trojan",
             "DLL"
         ]
     },
-    "Actors": [
-        "RedBravo",
-        "Recorded Futures Insikt Group",
-        "the Diamond Model of Intrusion Analysis",
-        "Threat Activity Group",
-        "Ministry of State Security",
-        "China State",
-        "Peoples Liberation Army",
-        "MSS",
-        "Mirai",
-        "C2s",
-        "Insikt Group",
-        "Recorded Future",
-        "RedFoxtrot",
-        "FRP",
-        "RedEcho",
-        "ShadowPad",
-        "Control",
-        "DVR",
-        "Command",
-        "IP",
-        "IPS",
-        "the Recorded Future Platform",
-        "Reverse Proxy",
-        "PLA",
-        "Insikt Group Github",
-        "Activity Group - March 2022"
-    ],
+    "Actors": "None found.",
     "Entities": [
-        "Recorded Future\nCentres",
-        "SCADA",
-        "Despatch Centres",
-        "Recorded Futures Insikt Group",
-        "India",
-        "Regional Load\nFuture",
-        "Third-Party\nIntelligence",
-        "NTA",
-        "Threat Activity Group",
-        "State",
-        "China State",
-        "Regional Load Despatch",
-        "MSP",
-        "Insikt Group",
-        "Chinese",
-        "Recorded Future",
-        "Ladakh",
-        "SecOps Intelligence",
-        "RoyalRoad",
-        "RedFoxtrot",
-        "RedEcho",
-        "RedDelta",
-        "FRP",
-        "ShadowPad",
-        "State Load Despatch Centre",
-        "Poison",
-        "DVR",
-        "IP",
-        "SSL",
-        "Indian",
-        "IPS",
-        "OT",
-        "The Recorded\nFuture Intelligence Platform",
-        "Boston",
-        "the Regional Load Despatch Centres",
-        "Microsoft",
-        "China",
-        "Insikt Group Github",
-        "ICS",
-        "Activity Group - March 2022"
+        "None found."
     ]
 }

@@ -1,3 +1,5 @@
+print("Welcome to Threat Intelligence Data Extractor By Team Cyber Trace SSPU. Please wait while we load the required libraries")
+
 import os
 import re
 import html
@@ -11,6 +13,8 @@ from services.extract_entities import extract_threat_actor, extract_targeted_ent
 from services.extract_malware import extract_malware_details
 from services.extract_iocs import extract_iocs
 from services.extract_ttps import extract_ttp
+
+print("Successfully loaded the required libraries")
 
 def extract_text_and_images(pdf_path):
     """
@@ -103,7 +107,7 @@ def process_pdf(pdf_path):
         # Use the extracted text for further analysis
         text = extracted_data["text"]
 
-        # Sanitize the extracted text to avoid malicious code execution
+        # Sanitize the extracted text
         sanitized_text = sanitize_text(text)
 
         # Extract IoCs, TTPs, and Malware details using the other functions
@@ -149,6 +153,8 @@ def download_data(data, filename="threat_intelligence_data.json"):
 if __name__ == "__main__":
     # Take user input for the file path
     pdf_path = input("Enter the path to the PDF file: ")
+
+    print("\nRecieved the PDF \nProcessing the PDF file... Please Hold Tight...:)")
     try:
         # Process the PDF to extract threat intelligence data
         threat_intelligence_data = process_pdf(pdf_path)

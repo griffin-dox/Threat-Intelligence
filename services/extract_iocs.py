@@ -37,6 +37,15 @@ def extract_iocs(text):
     domains = re.findall(r'\b[a-zA-Z0-9.-]+\.(?:com|org|net|co|[a-z]{2,})\b', text)
     iocs['Domains'] = list(set(domains))  # Removing duplicates using set
 
+    # Filter out domains that resemble file names
+    file_extensions = [
+    '.exe', '.pdf', '.docx', '.jpg', '.png', '.zip', '.tar', '.rar', '.txt', '.pptx', '.xls', 
+    '.bat', '.dll', '.jar', '.msi', '.vbs', '.cmd', '.bin', '.sh', '.ps1', '.apk', '.app', '.run', '.items','.etc','.conf','.log','.bak','.old','.temp','.tmp','.swp','.swo','.swn','.attribute','.windll','.ps1', '.cmd', '.scr', '.reg', '.pif', '.gadget', '.jar', '.cab', '.torrent', '.xz', '.bin', '.tar.gz','.ini', '.conf', '.log', '.bak', '.old', '.temp', '.tmp', '.swp', '.swo', '.swn', '.attribute','.windll'
+    '.dmg', '.iso', '.eml', '.htm', '.html', '.js', '.wsf', '.svg', '.json', '.csv', '.chm', '.vbe','.py','.git','.c','.cpp','.h','.hpp','.java','.class','.php','.asp','.aspx','.jsp','.cs','.vb','.vb','.vbs','.js','.ts','.css','.scss','.less','.html','.htm','.xml','.yml','.yaml','.json','.sql','.pl','.rb','.go','.swift','.kt','.kts','.sh','.bash','.zsh','.ps1','.cmd','.scr','.reg','.pif','.gadget','.jar','.cab','.torrent','.xz','.bin','.tar.gz','.ini','.conf','.log','.bak','.old','.temp','.tmp','.swp','.swo','.swn','.attribute','.windll'
+    '.ps1', '.cmd', '.scr', '.reg', '.pif', '.gadget', '.jar', '.cab', '.torrent', '.xz', '.bin', '.tar.gz','.ini', '.conf', '.log', '.bak', '.old', '.temp', '.tmp', '.swp', '.swo', '.swn', '.attribute','.windll'
+    ]
+    iocs['Domains'] = [domain for domain in iocs['Domains'] if not any(ext in domain.lower() for ext in file_extensions)]
+
     # Extract File hashes (MD5, SHA1, SHA256) using regex
     md5_hashes = re.findall(r'\b[a-fA-F0-9]{32}\b', text)
     sha1_hashes = re.findall(r'\b[a-fA-F0-9]{40}\b', text)
