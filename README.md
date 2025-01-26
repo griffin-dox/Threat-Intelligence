@@ -1,6 +1,7 @@
 # 🚨 Threat Intelligence Data Extractor 🚨(Private till 27th Jan 12:00 AM)
 
-Welcome to the **Threat Intelligence Data Extractor** project, developed by **Team Cyber Trace @ Symbiosis Skills and Professional University, Kiwale, Pune, (SSPU)**! This tool helps you extract and analyze critical threat intelligence data from PDF reports, including:
+Welcome to the **Threat Intelligence Data Extractor** project, developed by **Team Cyber Trace SSPU**! This Project was made as Solution for Problem Statement 1 in Hack IITK 2024 Hackathon Challenge round 1. 
+This tool helps you extract and analyze critical threat intelligence data from PDF reports, including:
 
 - **Indicators of Compromise (IoCs)**
 - **Malware Details**
@@ -72,6 +73,31 @@ Additionally, you'll need the **spaCy English model** to process the text effect
 ## 💾 Data Download
 
 Once processing is complete, the tool will give you the option to download the extracted data as a JSON file for further analysis.
+
+---
+
+## 🔗 Helpful Resources for Dependencies 🔗
+
+If you encounter any issues while installing the required dependencies, refer to the following resources:
+
+### Installing Python
+- [Python Official Website](https://www.python.org/downloads/)
+- [Guide to Installing Python on Windows/Mac/Linux](https://realpython.com/installing-python/)
+
+### Using pip to Install Packages
+- [pip Documentation](https://pip.pypa.io/en/stable/)
+- [Beginner's Guide to pip](https://realpython.com/what-is-pip/)
+
+### Installing spaCy
+- [spaCy Installation Guide](https://spacy.io/usage)
+- [Downloading spaCy Models](https://spacy.io/usage/models)
+
+### Library-Specific Guides
+- **pdfplumber**: [GitHub Documentation](https://github.com/jsvine/pdfplumber)
+- **Pillow**: [Official Installation Guide](https://pillow.readthedocs.io/en/stable/installation.html)
+- **PyMuPDF**: [PyMuPDF Documentation](https://pymupdf.readthedocs.io/en/latest/)
+
+If you still face issues, feel free to ask your team or the community for assistance.
 
 ---
 
