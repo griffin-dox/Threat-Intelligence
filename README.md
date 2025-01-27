@@ -1,4 +1,4 @@
-# 🚨 Threat Intelligence Data Extractor 🚨(Private till 27th Jan 12:00 AM)
+# 🚨 Threat Intelligence Data Extractor 🚨
 
 Welcome to the **Threat Intelligence Data Extractor** project, developed by **Team Cyber Trace SSPU**! This Project was made as Solution for Problem Statement 1 in Hack IITK 2024 Hackathon Challenge round 1. 
 This tool helps you extract and analyze critical threat intelligence data from PDF reports, including:
