@@ -70,6 +70,3 @@ def extract_iocs(text):
 
     return iocs
 
-#TEst Case
-
-#hello Team is an bunch of idiots except the leader
