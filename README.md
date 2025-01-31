@@ -80,7 +80,7 @@ Once processing is complete, the tool will give you the option to download the e
 
 If you encounter any issues while installing the required dependencies, refer to the following resources:
 
-### Installing Python
+### Installing Python (3.12.8 Recommended)
 - [Python Official Website](https://www.python.org/downloads/)
 - [Guide to Installing Python on Windows/Mac/Linux](https://realpython.com/installing-python/)
 
@@ -89,7 +89,7 @@ If you encounter any issues while installing the required dependencies, refer to
 - [Beginner's Guide to pip](https://realpython.com/what-is-pip/)
 
 ### Installing spaCy
--Spacy is only Compatible on Python 3.12.8 and Below please Python <= 3.12.8
+- Spacy is only Compatible on Python 3.12.8 and Below please Python <= 3.12.8
 - [spaCy Installation Guide](https://spacy.io/usage)
 - [Downloading spaCy Models](https://spacy.io/usage/models)
 
