@@ -24,7 +24,7 @@ This tool helps you extract and analyze critical threat intelligence data from P
 
 Before using this tool, ensure that you have the following installed:
 
-- **Python 3.8+**  
+- **Python 3.12.8**  
 - Required Python libraries:
   - `pdfplumber`
   - `Pillow`
@@ -39,7 +39,7 @@ Additionally, you'll need the **spaCy English model** to process the text effect
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/itzCodeItIshant/Threat-Intelligence.git
+   git clone https://github.com/griffin-dox/Threat-Intelligence.git
    cd Threat-Intelligence
    ```
 
@@ -89,6 +89,7 @@ If you encounter any issues while installing the required dependencies, refer to
 - [Beginner's Guide to pip](https://realpython.com/what-is-pip/)
 
 ### Installing spaCy
+-Spacy is only Compatible on Python 3.12.8 and Below please Python <= 3.12.8
 - [spaCy Installation Guide](https://spacy.io/usage)
 - [Downloading spaCy Models](https://spacy.io/usage/models)
 
