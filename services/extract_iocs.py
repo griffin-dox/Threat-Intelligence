@@ -69,3 +69,5 @@ def extract_iocs(text):
             iocs['Domains'].append(span.text)
 
     return iocs
+
+#TEst Case
