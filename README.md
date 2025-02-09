@@ -140,10 +140,13 @@ Once processed, the tool generates a **structured JSON output**, like this:
 
 ---
 
-## 💙 About Us  
-**👥 Team Cyber Trace - SSPU**  
-We are a passionate **cybersecurity team from SSPU** focused on **AI-driven threat intelligence solutions**.  
-We actively **participate in hackathons and coding challenges**, and this project was developed for **Hack IITK 2024 Challenge Round 1**.  
+## 🔥 About Us  
+
+We are a team of **first-year college students from SSPU**, actively participating in **hackathons and coding challenges** to push the boundaries of innovation.  
+
+This **Threat Intelligence project** was created as a **cutting-edge solution** for the **HACK IITK Challenge - Round 1, Problem Statement 1**.  
+
+🔒 **Driven by curiosity and a deep interest in cybersecurity**, we aim to make a meaningful impact in the field by leveraging technology to enhance digital security. 🚀   
 
 ### **🛠 Team Members:**  
 🚀 **Ishant Choudhary** - **Team Lead**  
