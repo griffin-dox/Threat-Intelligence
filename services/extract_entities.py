@@ -1,66 +1,104 @@
 import re
-import json
+import spacy
 
-def extract_threat_actor(text):
-    """
-    Extracts the threat actor name from a given text.
+# Load spaCy's NLP model
+nlp = spacy.load("en_core_web_sm")
 
-    Parameters:
-        text (str): The input text containing possible threat actor names.
+# Regular expressions for structured extraction
+THREAT_ACTOR_PATTERNS = re.compile(
+    r"\b(?:APT\d{1,3}|Lazarus(?: Group)?|Fancy Bear|Cozy Bear|Carbanak|Sandworm|DarkSide|REvil|Conti|LockBit|"
+    r"Team [A-Za-z0-9]+|[A-Za-z0-9]+ Group|Hacker Group|Cybercriminal Group)\b",
+    re.IGNORECASE
+)
 
-    Returns:
-        dict: A dictionary containing the extracted threat actor name.
-    """
-    # Updated regex pattern to capture threat actor names
-    threat_actor_pattern = r"(?:tracking|threat\s+actor|actor\s+group|APT\s+group|hacker\s+group|sponsored\s+by|behind\s+it|caused\s+by|campaign|cyber\s+espionage|state-backed|state-sponsored|politically\s+motivated|criminal\s+group|suspected\s+group)\s+(?:as\s+)?([A-Z][a-zA-Z0-9\-]+(?:\s+[A-Za-z0-9\-]+)*)"
+MALWARE_PATTERNS = re.compile(
+    r"\b(?:Shamoon|Emotet|WannaCry|Ryuk|TrickBot|Cobalt Strike|Locky|NotPetya|Stuxnet|Flame|Mirai|"
+    r"[A-Za-z0-9]+Loader|[A-Za-z0-9]+Stealer|[A-Za-z0-9]+RAT|Infostealer|Spyware|Adware|Rootkit|Ransomware)\b",
+    re.IGNORECASE
+)
 
-    # Find all matches in the text
-    matches = re.findall(threat_actor_pattern, text)
+TARGETED_ENTITY_PATTERNS = re.compile(
+    r"\b(?:Energy|Finance|Healthcare|Government|Retail|Manufacturing|Telecom|Education|Defense|Transportation|"
+    r"Critical Infrastructure|Supply Chain|Financial Services|Health Services|"
+    r"[A-Za-z0-9]+ Corporation|[A-Za-z0-9]+ Inc\.|[A-Za-z0-9]+ Ltd\.|Ministry of [A-Za-z]+|National Security Agency)\b",
+    re.IGNORECASE
+)
 
-    # Extract and clean the threat actor name
-    threat_actor = list(set(matches))
+# Priority lookup lists
+THREAT_ACTORS_LIST = {"lazarus group", "apt29", "fancy bear", "revil", "darkside", "sandworm", "lockbit", "conti"}
+MALWARE_NAMES_LIST = {"shamoon", "emotet", "wannacry", "ryuk", "trickbot", "cobalt strike", "locky", "notpetya", "stuxnet"}
+TARGETED_ENTITIES_LIST = {"microsoft", "google", "nsa", "tesla", "us department of defense", "financial sector"}
 
-    # Return the threat actor name or a default message if none is found
-    return {"threat_actor": threat_actor[0] if threat_actor else "None found."}
+# **Junk Terms to Remove**
+JUNK_WORDS = {
+    "attack", "command", "tcp", "process", "certificate", "tool", "settings", "file", "data", "windows", "network", "target", "sys", "delete", "exploit", "load backdoor file", "exfiltration", "ftp", "control", "keys.dat", "presumed", "settings.vwx", "encryption", "malicious", "malware", "payload"
+}
 
+# **Extract entities using regex and wordlist**
+def extract_entities(text, regex_pattern, wordlist):
+    extracted = set(match.lower() for match in regex_pattern.findall(text))
+    extracted |= {word.lower() for word in text.split() if word.lower() in wordlist}
+    return extracted
+
+# **Extract Threat Actors**
+def extract_threat_actors(text):
+    doc = nlp(text)
+    extracted = extract_entities(text, THREAT_ACTOR_PATTERNS, THREAT_ACTORS_LIST)
+    extracted |= {ent.text.lower() for ent in doc.ents if ent.label_ == "ORG"}
+    return extracted - JUNK_WORDS  # Remove unwanted system terms
+
+# **Extract Malware Names**
+def extract_malware_names(text):
+    extracted = extract_entities(text, MALWARE_PATTERNS, MALWARE_NAMES_LIST)
+    return extracted - JUNK_WORDS
+
+# **Extract Targeted Entities**
 def extract_targeted_entities(text):
-    """
-    Extracts victim names or targeted entities from the text, focusing on organization names or industries.
-    
-    Parameters:
-        text (str): The input text containing victim references.
-    
-    Returns:
-        dict: A dictionary containing a list of potential victim names or organizations.
-    """
-    # Define regex patterns to capture organizations, industries, and locations
-    victim_patterns = [
-        # Captures organization names or targeted companies
-        r"\b(?:Organization|Company|Corporation|Institute|Association|Manufacturer|Firm|Enterprise|Group)\s*[:\-\s]+([A-Za-z0-9\s&,\-\.]+)",  
-        
-        # Captures sectors, industries, or types of organizations
-        r"\b(?:Sector|Industry|Field)\s*[:\-\s]+([A-Za-z0-9\s&,\-\.]+)",  # e.g., aerospace industry, defense sector
-        
-        # Captures country names in a variety of formats
-        r"\b(?:Country|Nation)\s*[:\-\s]+([A-Za-z\s]+(?:[A-Za-z\s]*[A-Za-z]))",  # e.g., United States, Canada, U.K.
-        
-        # Captures references to specific industry types directly within text
-        r"\b(?:aerospace|cybersecurity|technology|manufacturing|defense|finance|energy|healthcare|telecommunications|automotive|education|biotech|pharmaceutical)\b",  # industries like aerospace, cybersecurity
-        
-        # Captures targeted organizations or industries linked to geopolitical regions like U.S. (e.g., U.S. aerospace)
-        r"\b(?:U\.S\.|United States|U\.K\.|UK|Canada|Germany|France|Russia|China|India)\s*(?:aerospace|cybersecurity|technology|defense|manufacturing|energy|healthcare)?\s*(?:industry|sector|company)?",  # U.S. aerospace, UK defense, etc.
-    ]
-    
-    victims = []
-    
-    # Search for matches in the text based on defined patterns
-    for pattern in victim_patterns:
-        matches = re.findall(pattern, text)
-        victims.extend([match.strip() for match in matches])
-    
-    # Remove duplicates and handle case where no matches are found
-    victims = list(set(victims))  # Remove duplicates
-    if not victims:
-        return {"targeted_entities": ["None found."]}
-    
-    return {"targeted_entities": victims}
+    doc = nlp(text)
+    extracted = extract_entities(text, TARGETED_ENTITY_PATTERNS, TARGETED_ENTITIES_LIST)
+    extracted |= {ent.text.lower() for ent in doc.ents if ent.label_ in ["ORG", "GPE"]}
+    return extracted - JUNK_WORDS
+
+# **Extract from Filename**
+def extract_from_filename(filename):
+    clean_filename = re.sub(r"[_\-]", " ", filename.lower())  # Normalize separators
+    clean_filename = re.sub(r"\.pdf$", "", clean_filename)  # Remove extension
+    return {
+        "Threat Actor(s)": extract_threat_actors(clean_filename),
+        "Malware(s)": extract_malware_names(clean_filename),
+        "Targeted Entities": extract_targeted_entities(clean_filename),
+    }
+
+# **Extract from Text**
+def extract_from_text(text, existing_entities):
+    extracted_threat_actors = existing_entities["Threat Actor(s)"] | extract_threat_actors(text)
+    extracted_malware = existing_entities["Malware(s)"] | extract_malware_names(text)
+    extracted_entities = existing_entities["Targeted Entities"] | extract_targeted_entities(text)
+    return {
+        "Threat Actor(s)": sorted(extracted_threat_actors),
+        "Malware(s)": sorted(extracted_malware),
+        "Targeted Entities": sorted(extracted_entities),
+    }
+
+# **Final Cleanup & Prioritization**
+def post_process_extracted_data(extracted_data, filename_data):
+    threat_actors = set(filename_data["Threat Actor(s)"]) | extracted_data["Threat Actor(s)"]
+    malware_names = set(filename_data["Malware(s)"]) | extracted_data["Malware(s)"]
+    targeted_entities = set(filename_data["Targeted Entities"]) | extracted_data["Targeted Entities"]
+
+    # **Ensure No Overlap**
+    threat_actors -= malware_names  # Malware should not be classified as actors
+    targeted_entities -= threat_actors  # Entities should not contain actors
+    targeted_entities -= malware_names  # Entities should not contain malware
+
+    return {
+        "Threat Actor(s)": sorted(threat_actors),
+        "Malware(s)": sorted(malware_names),
+        "Targeted Entities": sorted(targeted_entities),
+    }
+
+# **Main Function**
+def extract_all(filename, text):
+    extracted_from_filename = extract_from_filename(filename)
+    extracted_from_text = extract_from_text(text, extracted_from_filename)
+    return post_process_extracted_data(extracted_from_text, extracted_from_filename)
