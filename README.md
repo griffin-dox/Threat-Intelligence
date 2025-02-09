@@ -69,7 +69,7 @@ python -m spacy download en_core_web_sm
 
 ### **💻 Run the GUI version (Recommended):**  
 ```sh
-streamlit run GUI_frontend.py
+streamlit run gui.py
 ```
 - **Upload a PDF file** or **Paste raw text** for processing.  
 - **Select specific intelligence data** (IoCs, Malware, TTPs, etc.) or **extract everything**.  
@@ -77,7 +77,7 @@ streamlit run GUI_frontend.py
 
 ### **📄 Run the CLI version:**  
 ```sh
-python main.py
+python cli.py
 ```
 - Provide the **PDF path or raw text** when prompted.  
 - Choose the **data type to extract** (IoCs, TTPs, Malware, etc.).  
