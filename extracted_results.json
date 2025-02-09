@@ -1,0 +1,223 @@
+{
+    "IoCs": {
+        "IP addresses": [
+            "114.108.129.89",
+            "104.109.245.186",
+            "121.78.246.155",
+            "52.148.148.114",
+            "23.50.0.140",
+            "119.207.79.175",
+            "1.254.179.18",
+            "117.52.137.138",
+            "104.21.64.83",
+            "183.110.224.172",
+            "3.39.49.255",
+            "103.6.182.57",
+            "162.247.241.2",
+            "34.199.186.157",
+            "112.106.58.23",
+            "13.107.21.200",
+            "52.79.120.37",
+            "115.68.52.47",
+            "121.78.158.46",
+            "125.209.218.167",
+            "111.92.189.48",
+            "211.249.220.83"
+        ],
+        "Domains": [
+            "PROCEXP152.sys",
+            "www.nirsoft.net",
+            "ProcEXP152.sys",
+            "Application.evtx",
+            "tds.tm",
+            "configmanager.tlb",
+            "www.artinsight",
+            "ctmnews.kr",
+            "www.kfcjn",
+            "ene.sys",
+            "Keys.dat",
+            "co.kr",
+            "Settings.vwx",
+            "2EB3AC0F.pf"
+        ],
+        "Email addresses": [],
+        "File hashes": {
+            "MD5": [
+                "6EA4E4AB925A09E4C7A1E80BAE5B9584",
+                "A6602EF2F6DC790EA103FF453EB21024",
+                "C7256A0FBAB0F437C3AD4334AA5CDE06",
+                "FC8B6C05963FD5285BCE6ED51862F125",
+                "BD47942E9B6AD87EB5525040DB620756",
+                "61B3C9878B84706DB5F871B4808E739A",
+                "27DB56964E7583E19643BF5C98FFFD52"
+            ],
+            "SHA1": [],
+            "SHA256": []
+        }
+    },
+    "TTPs": {
+        "Tactics": [
+            [
+                "TA0001",
+                "Initial Access"
+            ],
+            [
+                "TA0002",
+                "Execution"
+            ],
+            [
+                "TA0003",
+                "Persistence"
+            ],
+            [
+                "TA0007",
+                "Discovery"
+            ],
+            [
+                "TA0008",
+                "Lateral Movement"
+            ],
+            [
+                "TA0009",
+                "Collection"
+            ],
+            [
+                "TA0010",
+                "Exfiltration"
+            ],
+            [
+                "TA0011",
+                "Impact"
+            ]
+        ],
+        "Techniques": []
+    },
+    "Malware": [],
+    "Malware Details": {
+        "Hashes": {
+            "TLSH": [
+                "61B3C9878B84706DB5F871B4808E739A",
+                "C7256A0FBAB0F437C3AD4334AA5CDE06",
+                "A6602EF2F6DC790EA103FF453EB21024",
+                "FC8B6C05963FD5285BCE6ED51862F125",
+                "6EA4E4AB925A09E4C7A1E80BAE5B9584",
+                "27DB56964E7583E19643BF5C98FFFD52",
+                "BD47942E9B6AD87EB5525040DB620756"
+            ]
+        },
+        "Tags": [
+            "Trojan",
+            "Backdoor",
+            "backdoor",
+            "trojan"
+        ]
+    },
+    "Actors": [
+        "16:33:06 malicious",
+        "appcrash",
+        "asec",
+        "attack group",
+        "byovd",
+        "c2",
+        "c:\\programdata\\",
+        "c:\\windows\\system32\\drivers\\procexp152.sys",
+        "c:\\windows\\system32\\legacyusermanager.dll\nload backdoor file keys.dat",
+        "certificate\nexploitation software",
+        "collection n/a \ncommand",
+        "control application communication\nlayer\nprotocol",
+        "creation (secured",
+        "customer financial business\ntype\ndamage windows",
+        "data/bin",
+        "delete appcrash file delete file",
+        "delete prefetch",
+        "develop",
+        "development develop",
+        "ene",
+        "exfiltration n/a \nimpact n/a \n",
+        "exploit/win",
+        "fswss",
+        "gmt designed",
+        "ip",
+        "kisa",
+        "lazarus",
+        "lazarus group",
+        "load backdoor file keys.dat",
+        "microsoft",
+        "movement exploitation",
+        "network access",
+        "nirsoft",
+        "nirsoft.exe",
+        "no md5 hash file name",
+        "prefetch 2eb3ac0f.pf",
+        "processexplorer",
+        "standard information",
+        "table] antiforensic behavior identified",
+        "techniques technique\nvulnerable drivers",
+        "the ahnlab security emergency response center",
+        "the lazarus group",
+        "timestomp\ncredential n/a \naccess\ndiscovery",
+        "tool\ninitial access n/a\n",
+        "trojan/win",
+        "ttp",
+        "v01",
+        "v02 mdp",
+        "windows\ncommand\nshell",
+        "xxxxx",
+        "xxxxx(pc01"
+    ],
+    "Entities": [
+        "16:33:06 malicious",
+        "appcrash",
+        "asec",
+        "byovd",
+        "c2",
+        "c:\\",
+        "c:\\programdata\\",
+        "c:\\programdata\\tszui",
+        "c:\\windows\\system32\\drivers\\procexp152.sys",
+        "c:\\windows\\system32\\legacyusermanager.dll\nload backdoor file keys.dat",
+        "certificate\nexploitation software",
+        "collection n/a \ncommand",
+        "control application communication\nlayer\nprotocol",
+        "creation (secured",
+        "customer financial business\ntype\ndamage windows",
+        "data/bin",
+        "defense",
+        "delete appcrash file delete file",
+        "delete prefetch",
+        "develop",
+        "development develop",
+        "ene",
+        "exfiltration n/a \nimpact n/a \n",
+        "exploit/win",
+        "fswss",
+        "gmt designed",
+        "ip",
+        "kisa",
+        "lazarus",
+        "load backdoor file keys.dat",
+        "microsoft",
+        "movement exploitation",
+        "network access",
+        "nirsoft",
+        "nirsoft.exe",
+        "no md5 hash file name",
+        "prefetch 2eb3ac0f.pf",
+        "processexplorer",
+        "standard information",
+        "table] antiforensic behavior identified",
+        "techniques technique\nvulnerable drivers",
+        "the ahnlab security emergency response center",
+        "the lazarus group",
+        "timestomp\ncredential n/a \naccess\ndiscovery",
+        "tool\ninitial access n/a\n",
+        "trojan/win",
+        "ttp",
+        "us",
+        "v01",
+        "v02 mdp",
+        "windows\ncommand\nshell",
+        "xxxxx",
+        "xxxxx(pc01"
+    ]
+}

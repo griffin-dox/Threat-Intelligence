@@ -1,0 +1,14 @@
+{
+    "Threat Actor(s)": [
+        "Lazarus",
+        "APT29"
+    ],
+    "Malware(s)": [
+        "Emotet",
+        "TrickBot"
+    ],
+    "Targeted Entities": [
+        "Government",
+        "Finance"
+    ]
+}

@@ -1,0 +1,39 @@
+{
+    "TTPs": {
+        "Tactics": [
+            [
+                "TA0001",
+                "Initial Access"
+            ],
+            [
+                "TA0002",
+                "Execution"
+            ],
+            [
+                "TA0003",
+                "Persistence"
+            ],
+            [
+                "TA0007",
+                "Discovery"
+            ],
+            [
+                "TA0008",
+                "Lateral Movement"
+            ],
+            [
+                "TA0009",
+                "Collection"
+            ],
+            [
+                "TA0010",
+                "Exfiltration"
+            ],
+            [
+                "TA0011",
+                "Impact"
+            ]
+        ],
+        "Techniques": []
+    }
+}
