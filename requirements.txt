@@ -1,6 +1,9 @@
-python==3.12.8
-spacy
+streamlit
 pdfplumber
 pillow
 pymupdf
-requests
+spacy
+regex
+json
+html
+os
