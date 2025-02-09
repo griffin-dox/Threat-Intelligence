@@ -31,7 +31,7 @@ options = {
 if st.button("Process File/Text"):
     if uploaded_file is not None:
         # Save uploaded file temporarily
-        temp_path = "temp_uploaded.pdf"
+        temp_path = "temp/temp_uploaded.pdf"
         with open(temp_path, "wb") as f:
             f.write(uploaded_file.read())
 
