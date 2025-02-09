@@ -1,5 +1,3 @@
-Here’s the updated `README.md` incorporating the new changes, including **Streamlit GUI**, **text input support**, **improved entity extraction**, and **enhanced JSON output**.  
-
 ---
 
 ## 🚨 Threat Intelligence Data Extractor 🚨  
