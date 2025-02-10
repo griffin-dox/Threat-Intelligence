@@ -1,19 +1,17 @@
 import os
 import json
+import sys
 from main import process_pdf
 
 # ASCII Art for Team Logo
 def display_logo():
     logo = """
-
  ██████╗ ██╗   ██╗  ███████╗  ███████╗  ██████╗      ████████╗  ██████╗    █████╗    ██████╗  ███████╗               
 ██╔════╝ ╚██╗ ██╔╝  ██╔════╝  ██╔════╝  ██╔══██╗     ╚══██╔══╝  ██╔══██╗  ██╔══██╗  ██╔════╝  ██╔════╝   
 ██║       ╚████╔╝   █████╗    █████╗    ██████╔╝        ██║     ██████╔╝  ███████║  ██║       █████╗                      
 ██║        ╚██╔╝    ██╔══╝    ██╔══╝    ██╔══██╗        ██║     ██╔══██╗  ██╔══██║  ██║       ██╔══╝     
 ╚██████╗    ██║     ██║       ███████╗  ██║  ██║        ██║     ██║  ██║  ██║  ██║  ╚██████╗  ███████╗  
- ╚═════╝    ╚═╝     ╚═╝       ╚══════╝  ╚═╝  ╚═╝        ╚═╝     ╚═╝  ╚═╝  ╚═╝  ╚═╝   ╚═════╝  ╚══════╝                                                                               
-
-
+ ╚═════╝    ╚═╝     ╚═╝       ╚══════╝  ╚═╝  ╚═╝        ╚═╝     ╚═╝  ╚═╝  ╚═╝  ╚═╝   ╚═════╝  ╚══════╝                   
 """
     print(logo)
 
@@ -26,6 +24,9 @@ def display_menu():
     print("  -i : Extract Indicators of Compromise (IoCs)")
     print("  -m : Extract Malware details")
     print("  -t : Extract Tactics, Techniques, and Procedures (TTPs)")
+    print("  -r : Extract Threat Actors")
+    print("  -e : Extract Targeted Entities")
+    print("  Type 'exit' to quit the program.")
     print("========================================================")
 
 # Save Results to JSON File
@@ -39,60 +40,74 @@ def save_to_json(data):
 
 # Main CLI Function
 def cli_frontend():
-    # Display the team logo and menu
-    display_logo()
-    display_menu()
+    try:
+        while True:
+            display_logo()
+            display_menu()
 
-    # Take PDF file input
-    pdf_path = input("Enter the path to the PDF file: ").strip()
-    if not os.path.exists(pdf_path):
-        print("Error: File not found. Please check the path and try again.")
-        return
+            # Take PDF file input
+            pdf_path = input("Enter the path to the PDF file (or type 'exit' to quit): ").strip()
+            if pdf_path.lower() == "exit":
+                print("Exiting program. Goodbye!")
+                sys.exit()
 
-    # Ask user for extraction options
-    print("\nSelect the type of intelligence to extract:")
-    print("  [A] All")
-    print("  [I] Indicators of Compromise (IoCs)")
-    print("  [M] Malware Details")
-    print("  [T] Tactics, Techniques, and Procedures (TTPs)")
-    choice = input("Enter your choice (e.g., 'A', 'I,M,T'): ").strip().lower()
+            if not os.path.exists(pdf_path):
+                print("Error: File not found. Please check the path and try again.")
+                continue
 
-    # Parse user choices
-    options = {
-        'all': False,
-        'iocs': False,
-        'malware': False,
-        'ttps': False,
-        'actors': False,
-        'entities': False
-    }
+            # Ask user for extraction options
+            print("\nSelect the type of intelligence to extract:")
+            print("  [A] All")
+            print("  [I] Indicators of Compromise (IoCs)")
+            print("  [M] Malware Details")
+            print("  [T] Tactics, Techniques, and Procedures (TTPs)")
+            print("  [R] Threat Actors")
+            print("  [E] Targeted Entities")
+            print("  (Example: 'I,M,T' or 'A')")
+            choice = input("Enter your choice: ").strip().lower()
 
-    if 'a' in choice:
-        options['all'] = True
-    else:
-        if 'i' in choice:
-            options['iocs'] = True
-        if 'm' in choice:
-            options['malware'] = True
-        if 't' in choice:
-            options['ttps'] = True
-        options['actors'] = options['all'] or options['malware']
-        options['entities'] = options['all'] or options['malware']
+            if choice == "exit":
+                print("Exiting program. Goodbye!")
+                sys.exit()
 
-    # Process the PDF and extract data
-    print("\nProcessing the PDF file... Please wait...")
-    result = process_pdf(pdf_path, options)
+            # Parse user choices
+            options = {
+                'all': 'a' in choice,
+                'iocs': 'i' in choice,
+                'malware': 'm' in choice,
+                'ttps': 't' in choice,
+                'actors': 'r' in choice,
+                'entities': 'e' in choice
+            }
+            
+            # If 'a' is selected, enable everything
+            if options['all']:
+                options = {key: True for key in options}
 
-    # Display the results
-    print("\nExtracted Threat Intelligence Data:")
-    print(json.dumps(result, indent=4))
+            # Process the PDF and extract data
+            print("\nProcessing the PDF file... Please wait...")
+            result = process_pdf(pdf_path, options)
 
-    # Ask user if they want to save the results
-    save_choice = input("\nDo you want to save the results as a JSON file? (Y/N): ").strip().lower()
-    if save_choice == 'y':
-        save_to_json(result)
-    else:
-        print("Results not saved.")
+            # Display the results
+            print("\nExtracted Threat Intelligence Data:")
+            print(json.dumps(result, indent=4))
+
+            # Ask user if they want to save the results
+            save_choice = input("\nDo you want to save the results as a JSON file? (Y/N): ").strip().lower()
+            if save_choice == 'y':
+                save_to_json(result)
+            else:
+                print("Results not saved.")
+
+            # Ask if they want to process another PDF
+            another = input("\nDo you want to process another PDF? (Y/N): ").strip().lower()
+            if another != 'y':
+                print("Exiting program. Goodbye!")
+                sys.exit()
+    
+    except KeyboardInterrupt:
+        print("\nProgram interrupted. Exiting gracefully. Goodbye!")
+        sys.exit()
 
 if __name__ == "__main__":
     cli_frontend()
