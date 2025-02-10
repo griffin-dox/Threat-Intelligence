@@ -7,10 +7,9 @@ import io
 import json
 import html
 from services.extract_entities import (
-    extract_threat_actors, 
+    extract_threat_actor, 
     extract_malware_names, 
-    extract_targeted_entities, 
-    extract_from_filename
+    extract_targeted_entities
 )
 from services.extract_malware import extract_malware_details
 from services.extract_iocs import extract_iocs
@@ -88,7 +87,6 @@ def process_pdf(pdf_path=None, options=None, user_text=None):
 
         sanitized_text = sanitize_text(text)
         pdf_filename = os.path.basename(pdf_path) if pdf_path else "User_Text_Input"
-        extracted_filename_entities = extract_from_filename(pdf_filename)
 
         result = {}
 
@@ -112,27 +110,18 @@ def process_pdf(pdf_path=None, options=None, user_text=None):
             malware_names = extract_malware_names(sanitized_text)
             malware_details = extract_malware_details(sanitized_text)
 
-            # Combine malware from filename and text
-            malware_names.update(extracted_filename_entities["Malware(s)"])
-            result['Malware'] = sorted(malware_names)
+            result['Malware Name'] = malware_names
             result['Malware Details'] = malware_details
 
         # Extract Threat Actors
         if options.get('all') or options.get('actors'):
-            threat_actors = extract_threat_actors(sanitized_text)
-
-            # Combine threat actors from filename and text
-            threat_actors.update(extracted_filename_entities["Threat Actor(s)"])
+            threat_actors = extract_threat_actor(sanitized_text)
             result['Actors'] = sorted(threat_actors)
 
         # Extract Targeted Entities
         if options.get('all') or options.get('entities'):
             entities = extract_targeted_entities(sanitized_text)
-
-            # Combine targeted entities from filename and text
-            entities.update(extracted_filename_entities["Targeted Entities"])
             result['Entities'] = sorted(entities)
-
         return result
 
     except Exception as e:
@@ -166,26 +155,18 @@ def process_text(text, extracted_filename_entities, options):
         if options.get('all') or options.get('malware'):
             malware_names = extract_malware_names(sanitized_text)
             malware_details = extract_malware_details(sanitized_text)
-            
-            # Combine malware from filename and text
-            malware_names.update(extracted_filename_entities.get("Malware(s)", set()))
-            result['Malware'] = sorted(malware_names)
+
+            result['Malware'] = malware_names
             result['Malware Details'] = malware_details
 
         # Extract Threat Actors
         if options.get('all') or options.get('actors'):
             threat_actors = extract_threat_actors(sanitized_text)
-            
-            # Combine threat actors from filename and text
-            threat_actors.update(extracted_filename_entities.get("Threat Actor(s)", set()))
             result['Actors'] = sorted(threat_actors)
 
         # Extract Targeted Entities
         if options.get('all') or options.get('entities'):
             entities = extract_targeted_entities(sanitized_text)
-            
-            # Combine targeted entities from filename and text
-            entities.update(extracted_filename_entities.get("Targeted Entities", set()))
             result['Entities'] = sorted(entities)
 
         return result
