@@ -2,7 +2,7 @@ import json
 import re
 
 def extract_threat_actor(text):
-    threat_actor_pattern = re.compile(r'(?i)\b(AeroBlade|Blind Eagle|APT-C-36|Cloud Atlas|Gamaredon|Scarred Manticore|Transparent Tribe|APT-36|Sharp Panda|MuddyWater|Turla|Wizard Spider|Sandworm Team|OilRig|MERCURY|Static Kitten|Fancy Bear|Cozy Bear|Equation Group|DarkSide|REvil)\b')
+    threat_actor_pattern = re.compile(r'(?i)\b(AeroBlade|Blind Eagle|APT-C-36|Cloud Atlas|Gamaredon|Scarred Manticore|Transparent Tribe|APT-36|Sharp Panda|MuddyWater|Turla|Wizard Spider|Sandworm Team|OilRig|MERCURY|Static Kitten|Fancy Bear|Cozy Bear|Equation Group|DarkSide|REvil|Lazarus|Lazarus group)\b')
     matches = sorted(set(threat_actor_pattern.findall(text)))
     return matches
 
