@@ -125,11 +125,11 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Add a logo (optional)
-st.image("https://via.placeholder.com/150", width=150)  # Replace with your logo URL
 st.title("🚀 Cyfer Trace - Threat Intelligence Extractor")  # Fixed typo here
 
 # Sidebar: Extraction Options
 with st.sidebar:
+    st.image("static/logo.webp", width=150)
     st.markdown("<h2 style='color: #00bcd4;'>⚙️ Extraction Options</h2>", unsafe_allow_html=True)
     extract_all = st.checkbox("Extract All", value=True, help="Extract all available threat intelligence data.")
     extract_iocs = st.checkbox("Extract IoCs", value=False, help="Extract Indicators of Compromise (IoCs).")
