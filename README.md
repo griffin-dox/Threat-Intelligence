@@ -38,7 +38,7 @@ Before using this tool, ensure that you have the following installed:
   PyMuPDF
   spacy
   ```
-- **spaCy English Model**  
+- **spaCy English Model(Auto Download in requirements.txt)**  
   ```
   python -m spacy download en_core_web_sm
   ```
@@ -58,7 +58,7 @@ cd Threat-Intelligence
 pip install -r requirements.txt
 ```
 
-### **3️⃣ Download the spaCy English Model:**  
+### **3️⃣ Download the spaCy English Model:(Do this if not installed Automatically)**  
 ```sh
 python -m spacy download en_core_web_sm
 ```
