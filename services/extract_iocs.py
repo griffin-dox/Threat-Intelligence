@@ -25,9 +25,20 @@ def extract_iocs(text):
     doc = nlp(text)
 
     # Extract Email addresses using spaCy's NER (if the model detects it)
+    # Handle obfuscation
+    text = text.replace('[.]', '.').replace('(dot)', '.').replace('[at]', '@').replace('(at)', '@')
+
+    # Regex for emails
+    email_regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b'
+    extracted_emails = set(re.findall(email_regex, text))
+
+    # SpaCy NER for emails
     for ent in doc.ents:
         if ent.label_ == 'EMAIL':
-            iocs['Email addresses'].append(ent.text)
+            extracted_emails.add(ent.text)
+
+    # Validate extracted emails
+    iocs['Email addresses'] = [email for email in extracted_emails if '@' in email and '.' in email.split('@')[-1]]
 
     # Extract IP addresses using regex (spaCy does not recognize IPs by default)
     ip_addresses = re.findall(r'\b(?:\d{1,3}\.){3}\d{1,3}\b', text)
