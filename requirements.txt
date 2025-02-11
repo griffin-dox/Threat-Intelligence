@@ -4,6 +4,6 @@ pillow
 pymupdf
 spacy
 regex
-json
-html
-os
+jsons
+requests_html
+os-sys
