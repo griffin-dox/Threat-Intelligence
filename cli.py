@@ -26,6 +26,7 @@ def display_menu():
     print("  -t : Extract Tactics, Techniques, and Procedures (TTPs)")
     print("  -r : Extract Threat Actors")
     print("  -e : Extract Targeted Entities")
+    print("  Example: 'i,m,t' to extract IoCs, Malware, and TTPs")
     print("  Type 'exit' to quit the program.")
     print("========================================================")
 
