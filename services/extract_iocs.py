@@ -1,6 +1,7 @@
 import re
 import spacy
 from spacy.matcher import PhraseMatcher
+from static.keywords import file_extensions
 
 # Load the spaCy model
 nlp = spacy.load("en_core_web_sm")
@@ -49,11 +50,6 @@ def extract_iocs(text):
     iocs['Domains'] = list(set(domains))  # Removing duplicates using set
 
     # Filter out domains that resemble file names
-    file_extensions = [
-    '.exe', '.pdf', '.docx', '.jpg', '.png', '.zip', '.tar', '.rar', '.txt', '.pptx', '.xls', 
-    '.bat', '.dll', '.jar', '.msi', '.vbs', '.cmd', '.bin', '.sh', '.ps1', '.apk', '.app', '.run', '.items','.etc','.conf','.log','.bak','.old','.temp','.tmp','.swp','.swo','.swn','.attribute','.windll','.ps1', '.cmd', '.scr', '.reg', '.pif', '.gadget', '.jar', '.cab', '.torrent', '.xz', '.bin', '.tar.gz','.ini', '.conf', '.log', '.bak', '.old', '.temp', '.tmp', '.swp', '.swo', '.swn', '.attribute','.windll'
-    '.dmg', '.iso', '.eml', '.htm', '.html', '.js', '.wsf', '.svg', '.json', '.csv', '.chm', '.vbe','.py','.git','.c','.cpp','.h','.hpp','.java','.class','.php','.asp','.aspx','.jsp','.cs','.vb','.vb','.vbs','.js','.ts','.css','.scss','.less','.html','.htm','.xml','.yml','.yaml','.json','.sql','.pl','.rb','.go','.swift','.kt','.kts','.sh','.bash','.zsh','.ps1','.cmd','.scr','.reg','.pif','.gadget','.jar','.cab','.torrent','.xz','.bin','.tar.gz','.ini','.conf','.log','.bak','.old','.temp','.tmp','.swp','.swo','.swn','.attribute','.windll','.ps1', '.cmd', '.scr', '.reg', '.pif', '.gadget', '.jar', '.cab', '.torrent', '.xz', '.bin', '.tar.gz','.ini', '.conf', '.log', '.bak', '.old', '.temp', '.tmp', '.swp', '.swo', '.swn', '.attribute','.windll', '.dat', '.dll', '.sys'
-    ]
     iocs['Domains'] = [domain for domain in iocs['Domains'] if not any(ext in domain.lower() for ext in file_extensions)]
 
     # Extract File hashes (MD5, SHA1, SHA256) using regex

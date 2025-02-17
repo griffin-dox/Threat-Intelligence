@@ -1,6 +1,7 @@
 import streamlit as st
 from main import process_pdf
 import time  # For simulating progress bar
+import os
 
 # Custom CSS for advanced styling
 st.markdown("""
@@ -12,7 +13,6 @@ st.markdown("""
             padding: 0; /* Remove default padding */
             overflow-x: hidden; /* Prevent horizontal scrolling */
         }
-
         body {
             font-family: 'Roboto', sans-serif;
             background: linear-gradient(135deg, #000000, #1a1a2e, #16213e, #0f3443, #1a1a2e, #000000);
@@ -20,13 +20,11 @@ st.markdown("""
             animation: gradient-animation 15s ease infinite; /* Animates the gradient */
             color: #ffffff; /* White text for contrast */
         }
-
         @keyframes gradient-animation {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
-
         /* Add a minimal symmetric diagonal pattern */
         body::before {
             content: '';
@@ -45,7 +43,6 @@ st.markdown("""
             z-index: -1; /* Place it behind other content */
             pointer-events: none; /* Ensure it doesn't block interactions */
         }
-
         /* Make the Streamlit app container fully transparent */
         .stApp {
             background-color: transparent !important; /* Fully transparent */
@@ -55,7 +52,6 @@ st.markdown("""
             padding: 0 !important; /* Remove padding */
             margin: 0 !important; /* Remove margin */
         }
-
         /* Title Styling */
         h1 {
             color: #00bcd4; /* Cyan for a futuristic look */
@@ -64,7 +60,6 @@ st.markdown("""
             margin-bottom: 0 !important; /* Remove bottom margin */
             padding-bottom: 0 !important; /* Remove bottom padding */
         }
-
         /* Sidebar Styling */
         .sidebar .sidebar-content {
             background-color: #1a1a2e; /* Dark blue for sidebar */
@@ -75,7 +70,6 @@ st.markdown("""
             font-weight: bold;
             color: #00bcd4; /* Cyan text for contrast */
         }
-
         /* Buttons Styling */
         .stButton > button {
             background-color: #00bcd4; /* Cyan buttons */
@@ -90,7 +84,6 @@ st.markdown("""
             background-color: #00acc1; /* Slightly darker cyan on hover */
             transform: scale(1.05);
         }
-
         /* JSON Output Styling */
         pre {
             background-color: #1a1a2e; /* Dark blue background for JSON */
@@ -99,7 +92,6 @@ st.markdown("""
             padding: 1rem;
             overflow-x: auto;
         }
-
         /* Card Styling */
         .card {
             background-color: #1a1a2e; /* Dark blue card */
@@ -108,7 +100,6 @@ st.markdown("""
             padding: 1.5rem;
             margin-bottom: 1rem;
         }
-
         /* Responsive Design Adjustments */
         @media (max-width: 768px) {
             h1 {
@@ -125,7 +116,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Add a logo (optional)
-st.title("🚀 Cyfer Trace - Threat Intelligence Extractor")  # Fixed typo here
+st.title("Cyfer Trace - Threat Intelligence Extractor")
 
 # Sidebar: Extraction Options
 with st.sidebar:
@@ -150,43 +141,55 @@ options = {
 
 # Main Content: File Upload and Text Input
 st.markdown('<div class="card">', unsafe_allow_html=True)
-uploaded_file = st.file_uploader("📂 Upload a PDF file", type=["pdf"], help="Upload a PDF document for analysis.")
+uploaded_files = st.file_uploader("📂 Upload PDF files", type=["pdf"], accept_multiple_files=True, help="Upload multiple PDF documents for analysis.")
 user_input = st.text_area("📝 Or paste text here for analysis", "", height=150)
 st.markdown('</div>', unsafe_allow_html=True)
 
 # Process Button
-if st.button("🔍 Process File/Text"):
-    if uploaded_file is None and not user_input:
-        st.error("⚠️ Please upload a file or enter text to analyze.")
+if st.button("🔍 Process Files/Text"):
+    if not uploaded_files and not user_input:
+        st.error("⚠️ Please upload files or enter text to analyze.")
     else:
-        # Progress Bar
+        results_dict = {}  # Dictionary to store results for each file
         progress_bar = st.progress(0)
-        for i in range(100):
-            time.sleep(0.02)  # Simulate processing
-            progress_bar.progress(i + 1)
-        # Simulate loading animation
-        with st.spinner("⏳ Processing... Please wait."):
-            if uploaded_file:
-                temp_path = "temp/temp_uploaded.pdf"
-                with open(temp_path, "wb") as f:
-                    f.write(uploaded_file.read())
-                results = process_pdf(temp_path, options)  # Process PDF
-            elif user_input:
+
+        # Process uploaded files
+        if uploaded_files:
+            total_files = len(uploaded_files)
+            for i, uploaded_file in enumerate(uploaded_files):
+                with st.spinner(f"⏳ Processing file {i + 1}/{total_files}: {uploaded_file.name}..."):
+                    temp_path = f"temp/{uploaded_file.name}"
+                    os.makedirs("temp", exist_ok=True)  # Ensure temp directory exists
+                    with open(temp_path, "wb") as f:
+                        f.write(uploaded_file.read())
+                    results = process_pdf(temp_path, options)  # Process PDF
+                    results_dict[uploaded_file.name] = results  # Store results
+                    time.sleep(0.02)  # Simulate processing
+                    progress_bar.progress((i + 1) / total_files)
+
+        # Process user input text
+        if user_input:
+            with st.spinner("⏳ Processing text input..."):
                 results = process_pdf(None, options, user_input)  # Process text input
+                results_dict["User Input"] = results  # Store results
+                time.sleep(0.02)  # Simulate processing
+                progress_bar.progress(1.0)
+
         # Display results
-        if results:
+        if results_dict:
             st.success("✅ Extraction Completed Successfully!")
             st.toast("Results are ready!", icon="🎉")
-            
-            # Display results in a card
-            st.markdown('<div class="card">', unsafe_allow_html=True)
-            with st.expander("📊 View Extracted Data", expanded=True):
-                st.json(results)  # Display results as formatted JSON
-            st.markdown('</div>', unsafe_allow_html=True)
-            # Download results as JSON
+
+            # Display results for each file/input in separate sections
+            for file_name, results in results_dict.items():
+                st.markdown(f'<div class="card"><h3>📄 {file_name}</h3></div>', unsafe_allow_html=True)
+                with st.expander(f"📊 View Extracted Data for {file_name}", expanded=False):
+                    st.json(results)  # Display results as formatted JSON
+
+            # Download all results as a single JSON file
             st.download_button(
-                label="📥 Download Results as JSON",
-                data=str(results),
+                label="📥 Download All Results as JSON",
+                data=str(results_dict),
                 file_name="extracted_results.json",
                 mime="application/json"
             )

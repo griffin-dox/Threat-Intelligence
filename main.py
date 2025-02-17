@@ -6,6 +6,8 @@ import fitz  # PyMuPDF
 import io
 import json
 import html
+import static.regex_pattern
+import static.keywords
 from services.extract_entities import (
     extract_threat_actor, 
     extract_malware_names, 
@@ -161,7 +163,7 @@ def process_text(text, extracted_filename_entities, options):
 
         # Extract Threat Actors
         if options.get('all') or options.get('actors'):
-            threat_actors = extract_threat_actors(sanitized_text)
+            threat_actors = extract_threat_actor(sanitized_text)
             result['Actors'] = sorted(threat_actors)
 
         # Extract Targeted Entities
